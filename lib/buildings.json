@@ -1,0 +1,14 @@
+{
+    "1": {
+        "name": "Gebäude 1",
+        "address": "Zwiebelweg 2"
+    },
+    "2": {
+        "name": "Gebäude 2",
+        "address": "Möhrenweg 2"
+    },
+    "3": {
+        "name": "Gebäude 3",
+        "address": "Möhrenweg 3"
+    }
+}
