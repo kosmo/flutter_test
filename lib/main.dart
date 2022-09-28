@@ -18,13 +18,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const ListBuildings(),
       },
-      // home: Scaffold(
-      //   appBar: AppBar(
-      //     title: const Text(appTitle),
-      //   ),
-      //   //body: const MyCustomForm(),
-      //   body: const ListBuildings(),
-      // ),
     );
   }
 }

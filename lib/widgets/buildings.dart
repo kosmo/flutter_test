@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inspection_app/helper.dart';
 import '../data.dart' show Building;
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -90,31 +91,26 @@ class EditBuildingState extends State<EditBuilding> {
         ),
         body: FormBuilder(
           key: _formKey,
-          child: Column(children: [
-            FormBuilderTextField(
-              name: 'name',
-              initialValue: widget.building["name"],
-            ),
-            FormBuilderTextField(
-              name: 'address',
-              initialValue: widget.building["address"],
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.saveAndValidate()) {
-                  // Merge existing json building (with id and maybe other uneditable fields) with the edited form values
-                  var mergedBuildingMap = {
-                    ...widget.building,
-                    ..._formKey.currentState!.instantValue
-                  };
-                  mergedBuildingMap;
-                  Building.editBuilding(
-                      widget.building["id"], mergedBuildingMap);
-                }
-              },
-              child: const Text('Save'),
-            ),
-          ]),
+          child: Column(
+            children: (textFieldsFromMap(widget.building) +
+                [
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.saveAndValidate()) {
+                        // Merge existing json building (with id and maybe other uneditable fields) with the edited form values
+                        var mergedBuildingMap = {
+                          ...widget.building,
+                          ..._formKey.currentState!.instantValue
+                        };
+                        mergedBuildingMap;
+                        Building.editBuilding(
+                            widget.building["id"], mergedBuildingMap);
+                      }
+                    },
+                    child: const Text('Save'),
+                  ),
+                ]),
+          ),
         ));
   }
 }

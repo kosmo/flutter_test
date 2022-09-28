@@ -16,13 +16,15 @@ class Building {
   static Future<Map> buildings() async {
     String path = await documentsPath;
     var data = {};
-
+    var origData =
+        json.decode(await rootBundle.loadString('lib/buildings.json'));
     // Prüfung ob es bereits eine json-Datei, mit manipulierrten Daten, im Documents-Ordner gibt.
-    // Wenn nicht die Standardvariante ausliefern.
+    // Wenn nicht die Standardvariante ausliefern. Falls doch, diese mit origData (wegen Updates der App) verschneiden
     if (await File('$path/buildings.json').exists()) {
       data = json.decode(await rootBundle.loadString('$path/buildings.json'));
+      data.addAll(origData);
     } else {
-      data = json.decode(await rootBundle.loadString('lib/buildings.json'));
+      data = origData;
     }
 
     // Der Umweg über cachedBuildings wird genommen, da das Einlesen der obigen JSON nach editBuilding
