@@ -10,6 +10,8 @@ Future<String> get documentsPath async {
   return directory.path;
 }
 
+Map cachedBuildings = {};
+
 class Building {
   static Future<Map> buildings() async {
     String path = await documentsPath;
@@ -23,7 +25,13 @@ class Building {
       data = json.decode(await rootBundle.loadString('lib/buildings.json'));
     }
 
-    return data;
+    // Der Umweg über cachedBuildings wird genommen, da das Einlesen der obigen JSON nach editBuilding
+    // NICHT zuverlässig die geänderten Werten ausgab.
+    if (cachedBuildings.isEmpty) {
+      cachedBuildings = data;
+    }
+    return cachedBuildings;
+    //return data;
   }
 
   static Future<List> buildingsList() async {
@@ -51,6 +59,7 @@ class Building {
     }
 
     buildings[id] = building;
+    cachedBuildings = buildings;
 
     String path = await documentsPath;
     File('$path/buildings.json').writeAsString(json.encode(buildings));

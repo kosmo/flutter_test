@@ -15,6 +15,7 @@ class ListBuildings extends StatefulWidget {
 class ListBuildingsState extends State<ListBuildings> {
   @override
   Widget build(BuildContext context) {
+    //_title = widget._title; // <<< ADDING THIS HERE IS THE FIX
     return FutureBuilder(
         future: Building.buildingsList(),
         builder: (context, snapshot) {
@@ -42,12 +43,16 @@ class ListBuildingsState extends State<ListBuildings> {
                                 child: Text(snapshot.data![index]["name"])),
                           ),
                           onTap: () {
+                            //Navigator.push( context, MaterialPageRoute( builder: (context) => SecondPage()), ).then((value) => setState(() {}));
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      EditBuilding(snapshot.data![index]),
-                                ));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    EditBuilding(snapshot.data![index]),
+                              ),
+                              // setState sorgt dafür, dass das ListBuildings-Widget nach EditBuilding neu gerendert wird und so
+                              // die Veränderungen auch dargestellt werden.
+                            ).then((value) => setState(() {}));
                           });
                     },
                   ),
