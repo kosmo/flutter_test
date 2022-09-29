@@ -21,8 +21,10 @@ class Building {
     // Prüfung ob es bereits eine json-Datei, mit manipulierrten Daten, im Documents-Ordner gibt.
     // Wenn nicht die Standardvariante ausliefern. Falls doch, diese mit origData (wegen Updates der App) verschneiden
     if (await File('$path/buildings.json').exists()) {
-      data = json.decode(await rootBundle.loadString('$path/buildings.json'));
-      data.addAll(origData);
+      //data = json.decode(await rootBundle.loadString('$path/buildings.json'));
+
+      data = json.decode(File('$path/buildings.json').readAsStringSync());
+      //data.addAll(origData);
     } else {
       data = origData;
     }
@@ -64,7 +66,7 @@ class Building {
     cachedBuildings = buildings;
 
     String path = await documentsPath;
-    File('$path/buildings.json').writeAsString(json.encode(buildings));
+    File('$path/buildings.json').writeAsStringSync(json.encode(buildings));
   }
 
   Future modify(building) async {}

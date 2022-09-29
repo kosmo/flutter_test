@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:inspection_app/helper.dart';
-import '../data.dart' show Building;
+import 'package:inspection_app/widgets/windows.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+
+import '../data.dart' show Building;
+import '../camera.dart';
+import '../main.dart';
 
 // Gebäudeliste
 class ListBuildings extends StatefulWidget {
@@ -108,6 +112,30 @@ class EditBuildingState extends State<EditBuilding> {
                       }
                     },
                     child: const Text('Save'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ListWindows(),
+                        ),
+                      );
+                    },
+                    child: const Text('ListWindows'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TakePictureScreen(
+                            camera: firstCamera,
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('ListWindows'),
                   ),
                 ]),
           ),
