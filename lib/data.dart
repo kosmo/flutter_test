@@ -24,7 +24,8 @@ class Building {
       //data = json.decode(await rootBundle.loadString('$path/buildings.json'));
 
       data = json.decode(File('$path/buildings.json').readAsStringSync());
-      //data.addAll(origData);
+      origData.addAll(data);
+      data = origData;
     } else {
       data = origData;
     }
